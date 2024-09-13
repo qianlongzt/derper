@@ -4,7 +4,7 @@ WORKDIR /app
 ARG TARGETOS TARGETARCH
 ARG DERP_VERSION=latest
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH CGO_ENABLED=0 \
-    go install -ldflags="-w -s" -trimpath tailscale.com/cmd/derper@${DERP_VERSION} -o /go/bin/derper
+    go install -ldflags="-w -s" -trimpath  -o /go/bin/derper tailscale.com/cmd/derper@${DERP_VERSION}
 
 FROM scratch
 
