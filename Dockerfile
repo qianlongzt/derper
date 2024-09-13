@@ -1,8 +1,10 @@
-FROM golang:latest AS builder
+FROM --platform=$BUILDPLATFORM  golang:latest AS builder
 WORKDIR /app
 
+ARG TARGETOS TARGETARCH
 ARG DERP_VERSION=latest
-RUN CGO_ENABLED=0 go install -ldflags="-w -s" -trimpath tailscale.com/cmd/derper@${DERP_VERSION}
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH CGO_ENABLED=0 \
+    go install -ldflags="-w -s" -trimpath tailscale.com/cmd/derper@${DERP_VERSION}
 
 FROM scratch
 
