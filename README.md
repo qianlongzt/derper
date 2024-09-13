@@ -16,7 +16,7 @@ docker run -p 80:80 -p 443:443 -p 3478:3478/udp fredliang/derper --hostname=derp
 
 `docker run --rm fredliang/derper --help`
 
-Fully DERP setup offical documentation: https://tailscale.com/kb/1118/custom-derp-servers/
+Fully DERP setup official documentation: https://tailscale.com/kb/1118/custom-derp-servers/
 
 ## Client verification
 
