@@ -5,7 +5,7 @@ on:
     branches: [main]
   schedule:
     # Runs "every Monday" (see https://crontab.guru)
-    - cron: '0 0 * * MON'
+    - cron: "0 0 * * MON"
   workflow_dispatch:
 
 permissions:
@@ -36,10 +36,12 @@ jobs:
 
       - name: Check if the image exists
         run: |
-          docker manifest inspect ghcr.io/${{ github.repository }}:${{ env.TAILSCALE_VERSION }}
-          status=$?
-          IMAGE_EXISTS=$(if [ $status -eq 0 ]; then echo "true"; else echo "false"; fi)
-          echo "status: $status, Image exists: $IMAGE_EXISTS"
+          if docker manifest inspect --quiet ghcr.io/${{ github.repository }}:${{ env.TAILSCALE_VERSION }}; then
+            IMAGE_EXISTS=true
+          else
+            IMAGE_EXISTS=false
+          fi
+          echo "Image exists: $IMAGE_EXISTS"
           echo IMAGE_EXISTS=$IMAGE_EXISTS >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
