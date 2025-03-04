@@ -36,7 +36,7 @@ jobs:
 
       - name: Check if the image exists
         run: |
-          if docker manifest inspect --quiet ghcr.io/${{ github.repository }}:${{ env.TAILSCALE_VERSION }}; then
+          if docker manifest inspect ghcr.io/${{ github.repository }}:${{ env.TAILSCALE_VERSION }}; then
             IMAGE_EXISTS=true
           else
             IMAGE_EXISTS=false
